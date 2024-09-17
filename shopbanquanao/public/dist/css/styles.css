@@ -1,0 +1,81 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+} */
+
+body {
+    position: relative;
+}
+
+.image-product-preview {
+    position: relative;
+}
+
+@keyframes rotateAnimation {
+    from {
+        transform: translate(-50%, -50%) rotate(-60deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.shoping-card-buy-btn {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: rotate(-60deg);
+    transition: opacity 0.5s ease;
+}
+
+.product-preview:hover .shoping-card-buy-btn {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: rotateAnimation 0.5s forwards;
+}
+
+#backtotop {
+    border-radius: 50%;
+    line-height: 48px;
+    background-color: #333;
+    display: none;
+    position: fixed;
+    bottom: 50px;
+    text-align: center;
+    width: 50px;
+    right: 10px;
+
+    transition: all 0.4s ease 0s;
+    height: 50px;
+    z-index: 999;
+    cursor: pointer;
+    padding-top: 2px;
+    padding-left: 1px;
+    color: white;
+
+}
+
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.navbar-nav .nav-item {
+    position: relative;
+}
+
+.nav-item.dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+}
