@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::post('/login', [UserController::class,'login'])->name('apilogin');
 
 
 Route::get("/getProductInfo", [ProductController::class,"getProductInfo"])->name("getProductInfo");
+
+Route::get("/addToCart", [CartController::class,"insertToCart"])->name("addToCart");

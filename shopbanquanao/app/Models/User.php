@@ -34,7 +34,8 @@ class User extends Authenticatable
         'user_district_location',
         'user_ward_location',
         'user_other_location',
-        'user_token'
+        'user_token',
+        'is_guest'
     ];
 
     /**

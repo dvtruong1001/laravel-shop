@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-12 col-md-4 col-lg-4">
                 <div class="row">
                     <div class="col-12">
                         <span class="fw-bold">Thông tin liên hệ giao hàng</span>
@@ -240,7 +240,7 @@
 
             </div>
 
-            <div class="col-12 col-md-6 col-lg-6">
+            <div class="col-12 col-md-8 col-lg-8">
 
                 <div class="row">
                     <div class="col-12">
@@ -256,35 +256,33 @@
                                     <th scope="col">Hình</th>
                                     <th scope="col">Thông tin sản phẩm</th>
                                     <th scope="col">SL</th>
+                                    <th scope="col">SIZE</th>
                                     <th scope="col">Tổng</th>
+                                    <th scope="col">Tạo lúc </th>
                                     <th scope="col">Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row"><img src="/dist/img/quannam1.png" class="img-thumbnail"
-                                            alt="..."></th>
-                                    <td>Quần Kaki Slimfit Trơn QK018 Màu Xanh Đen</td>
-                                    <td>1</td>
-                                    <td>299.000 VND</td>
-                                    <td><button class="btn btn-danger">Xóa</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><img src="/dist/img/quannam1.png" class="img-thumbnail"
-                                            alt="..."></th>
-                                    <td>Quần Kaki Slimfit Trơn QK018 Màu Xanh Đen</td>
-                                    <td>1</td>
-                                    <td>299.000 VND</td>
-                                    <td><button class="btn btn-danger">Xóa</button></td>
-                                </tr>
-                                <tr>
-                                    <th scope="row"><img src="/dist/img/quannam1.png" class="img-thumbnail"
-                                            alt="..."></th>
-                                    <td>Quần Kaki Slimfit Trơn QK018 Màu Xanh Đen</td>
-                                    <td>1</td>
-                                    <td>299.000 VND</td>
-                                    <td><button class="btn btn-danger">Xóa</button></td>
-                                </tr>
+                                @php
+                                    foreach ($products as $product) {
+                                        echo '
+                                        <tr>
+                                            <th scope="row"><img src="'. $product['product']->product_img. '" class="img-thumbnail"></th>
+                                            <td>'. $product['product']->product_name .'</td>
+                                            <td><input type="number" class="form-control cart-count" data-id="'.$product['cart']->cart_id.'" max="10" value="'. $product['cart']->cart_count .'"></td>
+                                            ';
+                                        echo '<td>'. $product['cart']->product_size .'</td>
+                                            <td>'. $product['product']->product_price * $product['cart']->cart_count .' VND</td>
+                                            <td>'. $product['cart']->create_at. '</td>
+                                            <td><button class="btn btn-danger">Xóa</button></td>
+                                        </tr>
+                                    
+                                    ';
+                                    }
+                                @endphp
+
+
+
                             </tbody>
                         </table>
 
@@ -407,7 +405,7 @@
                                                 if (data_phuong.error == 0) {
                                                     $("#phuong").html(
                                                         '<option value="0">Phường Xã</option>'
-                                                        );
+                                                    );
                                                     $.each(data_phuong.data,
                                                         function(key_phuong,
                                                             val_phuong) {
@@ -427,7 +425,7 @@
                                                 ?>
                                                     $("#phuong").val(
                                                         "<?= $user_data['user_ward_location'] ?>"
-                                                        );
+                                                    );
 
 
                                                     <?php

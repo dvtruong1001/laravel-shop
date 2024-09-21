@@ -7,7 +7,7 @@
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-12 col-lg-4">
 
                                 <div class="row-11">
 
@@ -44,21 +44,42 @@
                                     <div class="col-8"></div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col">
-                                        <img src="{{ URL('dist/img/quannam1.png') }} " class="img-thumbnail" alt="...">
+                                <div class="row" id="model-child-product">
+                                    <div class="col-4 cursor-pointer">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
+                                            alt="...">
                                     </div>
-                                    <div class="col">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail" alt="...">
+
+                                    <div class="col-4 cursor-pointer">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
+                                            alt="...">
                                     </div>
-                                    <div class="col">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail" alt="...">
+
+                                    <div class="col-4 cursor-pointer">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
+                                            alt="...">
                                     </div>
+
+                                    <div class="col-4 cursor-pointer">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
+                                            alt="...">
+                                    </div>
+
+                                    <div class="col-4 cursor-pointer">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
+                                            alt="...">
+                                    </div>
+
+                                    <div class="col-4 cursor-pointer">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
+                                            alt="...">
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                            <div class="col-8">
+                            <div class="col-12 col-lg-8">
                                 <div class="row align-items-center">
                                     <div class="col-12 pe-0">
                                         <span class="fw-bold" id="model-product-name">Đã xảy ra lỗi</span>
@@ -92,28 +113,27 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <label for="" class="form-label">Size *</label>
-                                                <select name="" id="" class="form-select">
-                                                    <option value="">S</option>
-                                                    <option value="">M</option>
-                                                    <option value="">L</option>
-                                                    <option value="">XL</option>
+                                                <select id="model-product-size" class="form-select">
 
                                                 </select>
+                                                <span class="fw-bold text-danger">Nếu bạn không thấy size muốn chọn thì do
+                                                    size đó đã hết hàng. Cảm ơn</span>
                                             </div>
 
                                             <div class="col-6">
                                                 <label for="" class="form-label">Số lượng *</label>
-                                                <select name="" id="" class="form-select">
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
-                                                    <option value="">4</option>
-                                                    <option value="">5</option>
-                                                    <option value="">6</option>
-                                                    <option value="">7</option>
-                                                    <option value="">8</option>
-                                                    <option value="">9</option>
-                                                    <option value="">10</option>
+                                                <select name="" id="model-cart-count" class="form-select">
+
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6</option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8</option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10</option>
 
                                                 </select>
                                             </div>
@@ -126,12 +146,12 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-12 col-md-12 col-lg-6">
-                                                <button class="btn btn-danger w-100"><i
+                                                <a class="btn btn-danger w-100" href="{{ route('cart') }}"><i
                                                         class="fa-solid fa-cart-shopping"></i><span
-                                                        class="ps-2 text-uppercase">Đăng ký mua</span></button>
+                                                        class="ps-2 text-uppercase">Kiểm tra giỏ hàng</span></a>
                                             </div>
                                             <div class="col-12 col-md-12 col-lg-6">
-                                                <button class="btn btn-outline text-danger"><i
+                                                <button class="btn btn-outline text-danger btn-addtocart"><i
                                                         class="fa-solid fa-plus"></i><span class="ps-2">Thêm vào giỏ
                                                         hàng</span></button>
                                             </div>
@@ -139,11 +159,11 @@
                                         <hr>
                                     </div>
                                     <div class="row gy-1">
-                                        <div class="col-12">
-                                            <button class="btn btn-primary w-100"><i
-                                                    class="fa-solid fa-angles-right"></i><span class="ps-2">Xem chi
-                                                    tiết</span></button>
-                                        </div>
+                                        {{-- <div class="col-12">
+                                        <button class="btn btn-primary w-100"><i
+                                                class="fa-solid fa-angles-right"></i><span class="ps-2">Xem chi
+                                                tiết</span></button>
+                                    </div> --}}
                                         <div class="col-12">
                                             <button type="button"
                                                 class="btn btn-white btn-outline border border-2 border-radius-lg w-100"
@@ -478,24 +498,38 @@
         <script>
             $(document).ready(function() {
 
-                $(".shoping-card-buy-btn").click(function(e) {
 
+                function showProduct(id) {
+
+
+                    Swal.fire({
+                        title: 'Đang lấy thông tin sản phẩm ...',
+                        text: 'Vui lòng chờ 1 chút nhé',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
                     $.ajax({
                         type: "get",
                         url: "{{ route('getProductInfo') }}",
                         data: {
-                            product_id: $(this).data("id")
+                            product_id: id
                         },
                         dataType: "json",
                         success: function(response) {
+                            Swal.close();
                             if (response.status == 200) {
 
-                                $("#model-product-name").text(response.product_data[0]
+                                $("#model-product-name").text(response.product_data
                                     .product_name);
-                                $("#model-product-price").text(response.product_data[0]
+                                $("#model-product-price").text(response.product_data
                                     .product_price);
 
-                                if(response.product_data[0].product_count > 0) {
+                                if (response.product_data.product_count > 0 || response
+                                    .product_data.product_count_m > 0 || response.product_data
+                                    .product_count_l > 0 || response.product_data
+                                    .product_count_xl > 0) {
                                     $("#model-product-status").removeClass("text-warning");
                                     $("#model-product-status").addClass("text-success");
                                     $("#model-product-status").text("Còn hàng");
@@ -504,16 +538,117 @@
                                     $("#model-product-status").removeClass("text-success");
                                     $("#model-product-status").text("Hết hàng");
                                 }
-                                
-                                $("#model-product-des").text(response.product_data[0].product_name);
-                                $("#model-product-des2").html(response.product_data[0].product_des);
+                                $("#model-product-size").html("");
+                                if (response.product_data.product_count > 0) {
+                                    $("#model-product-size").append('<option value="S">S (Còn ' + response
+                                        .product_data.product_count + ' sản phẩm )</option>');
+                                }
+
+                                if (response.product_data.product_count_m > 0) {
+                                    $("#model-product-size").append('<option value="M">M (Còn ' + response
+                                        .product_data.product_count_m + ' sản phẩm )</option>');
+                                }
+
+                                if (response.product_data.product_count_l > 0) {
+                                    $("#model-product-size").append('<option value="L">L (Còn ' + response
+                                        .product_data.product_count_l + ' sản phẩm )</option>');
+                                }
+
+                                if (response.product_data.product_count_xl > 0) {
+                                    $("#model-product-size").append('<option value="XL">XL (Còn ' + response
+                                        .product_data.product_count_xl + ' sản phẩm )</option>');
+                                }
+
+
+                                $("#model-child-product").html("");
+                                response.group_product.forEach(child_product => {
+                                    $("#model-child-product").append(`
+                    <div class="col-4 cursor-pointer">
+                            <img src="` + child_product.product_img +
+                                        `" class="img-thumbnail group-product" data-id="` +
+                                        child_product.product_id + `">
+                        </div> 
+                    `);
+                                });
+
+
+                                $(".group-product").click(function(e) {
+
+                                    $(".btn-addtocart").data("id", $(this).data("id"));
+                                    showProduct($(this).data("id"));
+
+                                });
+
+                                $("#model-product-des").text(response.product_data.product_name);
+                                $("#model-product-des2").html(response.product_data.product_des);
                                 $("#buy-product-modal").modal("show");
                             }
 
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
 
-                            console.log(jqXHR);
+                            Swal.close();
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi...",
+                                text: jqXHR.responseJSON.message,
+
+                            });
+                            return false;
+                        }
+                    });
+                }
+
+                $(".shoping-card-buy-btn").click(function(e) {
+
+
+                    $(".btn-addtocart").data("id", $(this).data("id"));
+                    showProduct($(this).data("id"));
+                });
+
+
+                $(".btn-addtocart").click(function() {
+                    console.log(getCookie("user_token"));
+
+                    Swal.fire({
+                        title: 'Đang thêm sản phẩm vào giỏ hàng ...',
+                        text: 'Vui lòng chờ 1 chút nhé',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    console.log($("#model-cart-count").val());
+
+                    $.ajax({
+                        type: "get",
+                        url: "{{ route('addToCart') }}",
+                        data: {
+                            token: getCookie("user_token"),
+                            product_id: $(this).data("id"),
+                            cart_count: $("#model-cart-count").val(),
+                            product_size: $("#model-product-size").val(),
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            Swal.close();
+                            if (response.status == 200) {
+                                Swal.fire({
+                                    toast: true, // Kích hoạt dạng toast
+                                    icon: 'success', // Biểu tượng (success, error, warning, info, question)
+                                    title: 'Thêm vào giỏ hàng thành công. Tiếp tục mua sắm nào!', // Tiêu đề thông báo
+                                    position: 'top-end', // Vị trí xuất hiện của toast (top, top-end, top-start, center, bottom, ...)
+                                    showConfirmButton: false, // Ẩn nút xác nhận
+                                    timer: 3000, // Thời gian tồn tại của toast (ms)
+                                    timerProgressBar: true, // Hiển thị thanh tiến trình
+                                });
+                            }
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+
+                            Swal.close();
                             Swal.fire({
                                 icon: "error",
                                 title: "Lỗi...",
@@ -525,6 +660,7 @@
                     });
 
                 });
+
 
             });
         </script>

@@ -21,8 +21,12 @@ class Product extends Model
         'product_price',
         'product_status',
         'product_count',
+        'product_count_m',
+        'product_count_l',
+        'product_count_xl',
         'product_img',
-        'product_lg_img'
+        'product_lg_img',
+        'product_group'
     ];
 
 }
