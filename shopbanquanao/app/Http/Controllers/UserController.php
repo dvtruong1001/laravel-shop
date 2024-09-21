@@ -10,7 +10,7 @@ class UserController extends Controller
     public function login(Request $request)
     {
 
-        $users = User::where(column: "username", $request->username)->where("password", md5($request->password))->first();
+        $users = User::where( "username","=", $request->username)->where("password", md5($request->password))->first();
         if (!$users) {
             return response()->json([
                 "status" => "error",

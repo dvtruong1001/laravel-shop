@@ -46,7 +46,7 @@
 </div>
 
 
-<nav class="navbar bg-light sticky-top">
+<nav class="navbar navbar-expand-xl bg-light sticky-top">
     <div class="container-fluid">
         <a href="#" class="navbar-brand" href="#">DVTMOD</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -54,63 +54,54 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <?php
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+               
+                <?php
 
-            $user_token = $_COOKIE["user_token"] ?? null;
-            if (empty($user_token)) {
+            
+            if (empty($authenticatedUser)) {
                 ?>
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/pages/home">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link login-btn" href="#">Đăng nhập</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link register-btn" href="#">Đăng ký</a>
-                    </li>
 
-                </ul>
+                <li class="nav-item">
+                    <a class="nav-link login-btn" href="#">Đăng nhập</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link register-btn" href="#">Đăng ký</a>
+                </li>
+
 
                 <?php
             } else {
 
 
 
-                // $user_data = json_decode(base64_decode($user_token), true);
-
-                // require_once $_SERVER["DOCUMENT_ROOT"]."/php/database/config.php";
-
-                // $check = $DATABASE->prepare("select * from user_data where username = ? and password = ?");
-                // $check->bind_param("ss", $user_data["username"], $user_data["password"]);
-                // $check->execute();
-
-                // $check = $check->get_result();
-                // if ($check->num_rows <= 0) {
-                //     setcookie("user_token", "", time() + 0);
-                //     header("location: /pages/home");
-                //     exit;
-                // }
                 ?>
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/pages/home">Trang chủ</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Xin chào : <span
+                            class="fs-5 fw-bold">{{ $authenticatedUser->user_full_name }}</span>
+                        </a>
+                        
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Cài đặt cá nhân</a></li>
+                            <li><a class="dropdown-item" href="#">Giỏ hàng của tôi</a></li>
+                            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                            
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link login-btn" href="#"><?= $user_data["user_full_name"];?></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link register-btn" href="#">Đăng xuất</a>
-                    </li>
-
                 </ul>
-
+                
 
 
                 <?php
             }
             ?>
+
+            </ul>
+
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item fw-bold text-uppercase">
@@ -175,14 +166,145 @@
 
             </ul>
 
-            <form class="d-flex" role="search" action="pages/search" method="POST">
+            <form class="d-flex" role="search" action="{{ route("search") }}" method="GET">
                 <input class="form-control me-2" type="search" placeholder="Tìm kiếm danh mục, sản phẩm"
-                    aria-label="Search">
+                    aria-label="Search" name="kw">
                 <button class="btn btn-outline-success me-2" type="submit">Search</button>
-                <a href="/pages/shopping-cart" class="btn btn-danger"><i class="fa-solid fa-cart-shopping"></i></a>
+                <a href="{{ route("cart") }}" class="btn btn-danger"><i class="fa-solid fa-cart-shopping"></i></a>
 
             </form>
 
         </div>
     </div>
 </nav>
+
+
+<script>
+    $(document).ready(function() {
+
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $('#backtotop').fadeIn();
+            } else {
+                $('#backtotop').fadeOut();
+            }
+        });
+
+
+        $('#backtotop').click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, 600);
+            return false;
+        });
+
+
+        $(".login-btn").click(function(e) {
+            e.preventDefault();
+            $("#login-modal").modal("show");
+        });
+
+        $("#login-form").submit(function(e) {
+            e.preventDefault();
+            const username_field = $("#login-username");
+            const password_field = $("#login-password");
+
+
+            if (username_field.val() == "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi...",
+                    text: "Không được bỏ trống tên tài khoản",
+
+                });
+                return false;
+            }
+
+            if (username_field.val().length < 6) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi...",
+                    text: "Tên tài khoản phải lớn hơn 6 kí tự",
+
+                });
+                return false;
+            }
+
+
+
+
+            if (password_field.val() == "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi...",
+                    text: "Không được bỏ trống Mật khẩu",
+
+                });
+                return false;
+            }
+
+
+            if (password_field.val().length < 6) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi...",
+                    text: "Mật khẩu phải lớn hơn 6 kí tự",
+
+                });
+                return false;
+            }
+
+            $.ajax({
+                url: "{{ route('apilogin') }}",
+                type: 'POST',
+                data: {
+                    username: username_field.val(),
+                    password: password_field.val()
+                },
+
+                success: function(response) {
+                    console.log(response)
+                    if (response) {
+                        let res_json = response;
+
+                        if (res_json.status == "error") {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi...",
+                                text: res_json.message,
+
+                            });
+                            return false;
+                        }
+
+                        setCookie("user_token", res_json.token, 99);
+                        window.location.reload();
+                    } else {
+                        console.log(response);
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi...",
+                            text: "Đã xảy ra lỗi khi đăng nhập",
+
+                        });
+                        return false;
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+
+                    console.log(jqXHR);
+                    Swal.fire({
+                        icon: "error",
+                        title: "Lỗi...",
+                        text: jqXHR.responseJSON.message,
+
+                    });
+                    return false;
+                }
+            });
+
+
+        });
+    });
+</script>

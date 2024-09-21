@@ -8,18 +8,23 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     //
-    public function home()
-    {
-        $hot_products = Product::where("category_linker_id", 3)->orderBy("product_id", "desc")->limit(4)->get();
-        $new_products = Product::where("category_linker_id", 1)->orderBy("product_id", "desc")->limit(4)->get();
-        $top_sell_products = Product::where("category_linker_id", 2)->orderBy("product_id", "desc")->limit(4)->get();
+    public function getProductInfo(Request $request) {
+        $product_id = $request->product_id;
 
+        $product = Product::where("product_id", $product_id)->get();
+        if(!$product) {
+            return response()->json([
+                "message" => "Khong tim thay san pham",
+                "status" => 404
+                ], 200);
+        }
 
-        $products = Product::all();
-        return view("home", [
-            "hot_products" => $hot_products,
-            "new_products" => $new_products,
-            "top_sell_products" => $top_sell_products
-        ]);
+        return response()->json([
+            "message"=> "Lay thong tin san pham thanh cong",
+            "status" => 200,
+            "product_data"=> $product->toArray()
+            ],200);
     }
+
+    
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
@@ -15,10 +16,11 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', [ProductController::class,'home'])->name('home');
-Route::get("/search", function() {
-    return view("search");
-});
+Route::get('/', [Controller::class,'home'])->name('home');
+
+Route::get("/search", [Controller::class,"search"])->name("search");
+
+
 Route::get("/shopping-cart", function() {
     return view("shopping-cart");
-});
+})->name("cart");

@@ -61,36 +61,30 @@
                             <div class="col-8">
                                 <div class="row align-items-center">
                                     <div class="col-12 pe-0">
-                                        <span class="fw-bold">Quần Kaki Slimfit Trơn QK018 Màu Xanh Đen</span>
+                                        <span class="fw-bold" id="model-product-name">Đã xảy ra lỗi</span>
                                     </div>
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-12 col-sm-3 col-md-3 col-lg-3 text-nowrap">Giá bán :</div>
                                             <div class="col-12 col-sm-9 col-md-9 col-lg-9 text-start ps-3"><span
-                                                    class="text-danger fw-bold fs-5">249.000 VND</span></div>
+                                                    class="text-danger fw-bold fs-5" id="model-product-price">999.000
+                                                    VND</span></div>
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <span>Tình trạng : </span>
-                                        <span class="text-success fw-bold">Còn hàng</span>
+                                        <span class="text-success fw-bold" id="model-product-status">Còn hàng</span>
                                         <hr>
                                     </div>
                                     <div class="col-12">
                                         <span>Điểm nổi bật : </span>
                                     </div>
                                     <div class="col-12">
-                                        <span class="fw-bold">Quần Kaki Slimfit Trơn QK018 Màu Xanh Đen : </span>
+                                        <span class="fw-bold" id="model-product-des">Đã xảy ra lỗi</span>
 
                                     </div>
                                     <div class="col-12">
-                                        <span>Thông tin sản phẩm: <br>
-                                            - Mã sản phẩm: SM158 <br>
-                                            - Chất liệu: Oxford <br>
-                                            - Họa tiết: Trơn <br>
-                                            - Form: Regular <br>
-                                            - Màu: Trắng / Be / Xanh biển / Xanh đen <br>
-                                            ** Sản phẩm hiện có tại Website, Facebook và hệ thống cửa hàng DVTMOD toàn
-                                            quốc.</span>
+                                        <span id="model-product-des2">Đã xảy ra lỗi</span>
                                         <hr>
                                     </div>
 
@@ -222,42 +216,40 @@
                 <div class="row">
 
                     @foreach ($hot_products as $product)
-                        
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="row product-preview">
-                            <div class="col-12 image-product-preview">
-                                <img src="{{ URL( $product->product_lg_img ) }}" class="img-fluid" alt="...">
-                                <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"><i
-                                        class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col-12">
-                                <div class="row text-center mt-2">
-                                    <div class="col-12">
-                                        <span>{{ $product->product_name }}</span>
-                                    </div>
-                                    <div class="col-12">
-                                        <span class="text-danger">{{ $product->product_price }} VND</span>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="row product-preview">
+                                <div class="col-12 image-product-preview">
+                                    <img src="{{ URL($product->product_lg_img) }}" class="img-fluid" alt="...">
+                                    <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"
+                                        data-id=" {{ $product->product_id }}"><i class="fa fa-shopping-cart"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col-12">
+                                    <div class="row text-center mt-2">
+                                        <div class="col-12">
+                                            <span>{{ $product->product_name }}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-danger">{{ $product->product_price }} VND</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
                     @endforeach
-                    
 
 
-                    
+
+
 
 
 
@@ -268,13 +260,15 @@
             <div class="d-none d-md-block d-lg-block col-12 col-lg-12 col-md-12 mt-5">
                 <div class="row">
                     <div class="col-3">
-                        <img src="{{ URL("dist/img/banner/somi-summercollection.png") }}" class="img-fluid" alt="...">
+                        <img src="{{ URL('dist/img/banner/somi-summercollection.png') }}" class="img-fluid"
+                            alt="...">
                     </div>
                     <div class="col-6">
-                        <img src="{{ URL("dist/img/banner/bonvoyage.png") }}" class="img-fluid" alt="...">
+                        <img src="{{ URL('dist/img/banner/bonvoyage.png') }}" class="img-fluid" alt="...">
                     </div>
                     <div class="col-3">
-                        <img src="{{ URL("dist/img/banner/polo-summercollection.png") }}" class="img-fluid" alt="...">
+                        <img src="{{ URL('dist/img/banner/polo-summercollection.png') }}" class="img-fluid"
+                            alt="...">
                     </div>
                 </div>
             </div>
@@ -288,42 +282,40 @@
                 <div class="row">
 
                     @foreach ($new_products as $product)
-                        
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="row product-preview">
-                            <div class="col-12 image-product-preview">
-                                <img src="{{ URL( $product->product_lg_img ) }}" class="img-fluid" alt="...">
-                                <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"><i
-                                        class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col-12">
-                                <div class="row text-center mt-2">
-                                    <div class="col-12">
-                                        <span>{{ $product->product_name }}</span>
-                                    </div>
-                                    <div class="col-12">
-                                        <span class="text-danger">{{ $product->product_price }} VND</span>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="row product-preview">
+                                <div class="col-12 image-product-preview">
+                                    <img src="{{ URL($product->product_lg_img) }}" class="img-fluid" alt="...">
+                                    <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"
+                                        data-id=" {{ $product->product_id }}"><i class="fa fa-shopping-cart"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col-12">
+                                    <div class="row text-center mt-2">
+                                        <div class="col-12">
+                                            <span>{{ $product->product_name }}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-danger">{{ $product->product_price }} VND</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
                     @endforeach
-                    
 
 
-                    
+
+
 
 
 
@@ -340,42 +332,40 @@
                 <div class="row">
 
                     @foreach ($top_sell_products as $product)
-                        
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="row product-preview">
-                            <div class="col-12 image-product-preview">
-                                <img src="{{ URL( $product->product_lg_img ) }}" class="img-fluid" alt="...">
-                                <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"><i
-                                        class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col">
-                                <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                            </div>
-                            <div class="col-12">
-                                <div class="row text-center mt-2">
-                                    <div class="col-12">
-                                        <span>{{ $product->product_name }}</span>
-                                    </div>
-                                    <div class="col-12">
-                                        <span class="text-danger">{{ $product->product_price }} VND</span>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="row product-preview">
+                                <div class="col-12 image-product-preview">
+                                    <img src="{{ URL($product->product_lg_img) }}" class="img-fluid" alt="...">
+                                    <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"
+                                        data-id=" {{ $product->product_id }}"><i class="fa fa-shopping-cart"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col">
+                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
+                                </div>
+                                <div class="col-12">
+                                    <div class="row text-center mt-2">
+                                        <div class="col-12">
+                                            <span>{{ $product->product_name }}</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <span class="text-danger">{{ $product->product_price }} VND</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-
                     @endforeach
-                    
 
 
-                    
+
+
 
 
 
@@ -489,7 +479,51 @@
             $(document).ready(function() {
 
                 $(".shoping-card-buy-btn").click(function(e) {
-                    $("#buy-product-modal").modal("show");
+
+                    $.ajax({
+                        type: "get",
+                        url: "{{ route('getProductInfo') }}",
+                        data: {
+                            product_id: $(this).data("id")
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.status == 200) {
+
+                                $("#model-product-name").text(response.product_data[0]
+                                    .product_name);
+                                $("#model-product-price").text(response.product_data[0]
+                                    .product_price);
+
+                                if(response.product_data[0].product_count > 0) {
+                                    $("#model-product-status").removeClass("text-warning");
+                                    $("#model-product-status").addClass("text-success");
+                                    $("#model-product-status").text("Còn hàng");
+                                } else {
+                                    $("#model-product-status").addClass("text-warning");
+                                    $("#model-product-status").removeClass("text-success");
+                                    $("#model-product-status").text("Hết hàng");
+                                }
+                                
+                                $("#model-product-des").text(response.product_data[0].product_name);
+                                $("#model-product-des2").html(response.product_data[0].product_des);
+                                $("#buy-product-modal").modal("show");
+                            }
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+
+                            console.log(jqXHR);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi...",
+                                text: jqXHR.responseJSON.message,
+
+                            });
+                            return false;
+                        }
+                    });
+
                 });
 
             });
