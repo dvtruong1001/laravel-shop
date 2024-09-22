@@ -12,33 +12,8 @@
                                 <div class="row-11">
 
                                     <div class="col-12">
-                                        <div id="carouselExampleControls" class="carousel carousel-dark slide"
-                                            data-bs-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <img src="{{ URL('dist/img/quankakinam1-lg.png') }}"
-                                                        class="d-block w-100" alt="...">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="{{ URL('dist/img/quankakinam1-lg.png') }}"
-                                                        class="d-block w-100" alt="...">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="{{ URL('dist/img/quankakinam1-lg.png') }}"
-                                                        class="d-block w-100" alt="...">
-                                                </div>
-                                            </div>
-                                            <button class="carousel-control-prev" type="button"
-                                                data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </button>
-                                            <button class="carousel-control-next" type="button"
-                                                data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </button>
-                                        </div>
+                                        <img src="{{ URL('dist/img/quankakinam1-lg.png') }}"
+                                                        class="d-block w-100 product-lg-img">
 
                                     </div>
                                     <div class="col-8"></div>
@@ -146,7 +121,7 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-12 col-md-12 col-lg-6">
-                                                <a class="btn btn-danger w-100" href="{{ route("cart") }}"><i
+                                                <a class="btn btn-danger w-100" href="{{ route('cart') }}"><i
                                                         class="fa-solid fa-cart-shopping"></i><span
                                                         class="ps-2 text-uppercase">Kiểm tra giỏ hàng</span></a>
                                             </div>
@@ -321,14 +296,18 @@
                                             @foreach ($hot_products as $hot_product)
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <img src="{{ URL($hot_product->product_img) }}"
-                                                            class="img-thumbnail">
+                                                        <a
+                                                            href="{{ request()->fullUrlWithQuery(['byId' => $hot_product->product_id]) }}"><img
+                                                                src="{{ URL($hot_product->product_img) }}"
+                                                                class="img-thumbnail"></a>
                                                     </div>
                                                     <div class="col-8">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <span class="fs-5"> {{ $hot_product->product_name }}
-                                                                </span>
+                                                                <a
+                                                                    href="{{ request()->fullUrlWithQuery(['byId' => $hot_product->product_id]) }}"><span
+                                                                        class="fs-5"> {{ $hot_product->product_name }}
+                                                                    </span></a>
                                                             </div>
                                                             <div class="col-12">
                                                                 <span class="text-danger">
@@ -355,22 +334,31 @@
                                             <hr>
                                         </div>
                                         <div class="col-12">
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <img src="/dist/img/Áo sơ mi nam dài tay vải trơn.png"
-                                                        class="img-thumbnail">
-                                                </div>
-                                                <div class="col-8">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <span class="fs-5"> Áo sơ mi nam dài tay vải trơn </span>
-                                                        </div>
-                                                        <div class="col-12">
-                                                            <span class="text-danger"> 249.000 VND </span>
+                                            @foreach ($view_product as $product)
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <a
+                                                            href="{{ request()->fullUrlWithQuery(['byId' => $hot_product->product_id]) }}"><img
+                                                                src="{{ URL($hot_product->product_img) }}"
+                                                                class="img-thumbnail"></a>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <a
+                                                                    href="{{ request()->fullUrlWithQuery(['byId' => $hot_product->product_id]) }}"><span
+                                                                        class="fs-5"> {{ $hot_product->product_name }}
+                                                                    </span></a>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <span class="text-danger">
+                                                                    {{ $hot_product->product_price }} VND </span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
+
                                         </div>
                                     </div>
                                 </div>
@@ -439,7 +427,8 @@
                     type: "get",
                     url: "{{ route('getProductInfo') }}",
                     data: {
-                        product_id: id
+                        product_id: id,
+                        user_token: getCookie("user_token")
                     },
                     dataType: "json",
                     success: function(response) {
@@ -483,6 +472,8 @@
                                 $("#model-product-size").append('<option value="XL">XL (Còn ' + response
                                     .product_data.product_count_xl + ' sản phẩm )</option>');
                             }
+
+                            $(".product-lg-img").attr("src", response.product_data.product_lg_img);
 
 
                             $("#model-child-product").html("");
@@ -545,7 +536,7 @@
                 });
 
                 console.log($("#model-cart-count").val());
-                
+
                 $.ajax({
                     type: "get",
                     url: "{{ route('addToCart') }}",

@@ -26,7 +26,11 @@ class Product extends Model
         'product_count_xl',
         'product_img',
         'product_lg_img',
-        'product_group'
+        'product_group',
+        'is_product_child',
+        'view_count',
+        'sell_count',
+        'product_weight'
     ];
 
 }

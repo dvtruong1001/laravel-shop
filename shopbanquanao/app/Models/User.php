@@ -35,7 +35,12 @@ class User extends Authenticatable
         'user_ward_location',
         'user_other_location',
         'user_token',
-        'is_guest'
+        'is_guest',
+        'level'
+    ];
+
+    protected $casts = [
+        "user_number_phone" => "string"
     ];
 
     /**

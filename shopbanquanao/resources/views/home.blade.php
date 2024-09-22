@@ -12,67 +12,34 @@
                                 <div class="row-11">
 
                                     <div class="col-12">
-                                        <div id="carouselExampleControls" class="carousel carousel-dark slide"
-                                            data-bs-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active">
-                                                    <img src="{{ URL('dist/img/quankakinam1-lg.png') }}"
-                                                        class="d-block w-100" alt="...">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="{{ URL('dist/img/quankakinam1-lg.png') }}"
-                                                        class="d-block w-100" alt="...">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="{{ URL('dist/img/quankakinam1-lg.png') }}"
-                                                        class="d-block w-100" alt="...">
-                                                </div>
-                                            </div>
-                                            <button class="carousel-control-prev" type="button"
-                                                data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Previous</span>
-                                            </button>
-                                            <button class="carousel-control-next" type="button"
-                                                data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="visually-hidden">Next</span>
-                                            </button>
-                                        </div>
-
+                                        <img src="{{ URL('dist/img/quankakinam1-lg.png') }}" class="d-block w-100 product-lg-img">
                                     </div>
                                     <div class="col-8"></div>
                                 </div>
 
                                 <div class="row" id="model-child-product">
                                     <div class="col-4 cursor-pointer">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
-                                            alt="...">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product">
                                     </div>
 
                                     <div class="col-4 cursor-pointer">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
-                                            alt="...">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product">
                                     </div>
 
                                     <div class="col-4 cursor-pointer">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
-                                            alt="...">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product">
                                     </div>
 
                                     <div class="col-4 cursor-pointer">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
-                                            alt="...">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product">
                                     </div>
 
                                     <div class="col-4 cursor-pointer">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
-                                            alt="...">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product">
                                     </div>
 
                                     <div class="col-4 cursor-pointer">
-                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product"
-                                            alt="...">
+                                        <img src="{{ URL('dist/img/quannam1.png') }}" class="img-thumbnail group-product">
                                     </div>
 
                                 </div>
@@ -239,20 +206,15 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                             <div class="row product-preview">
                                 <div class="col-12 image-product-preview">
-                                    <img src="{{ URL($product->product_lg_img) }}" class="img-fluid" alt="...">
+                                    <a href="{{ route('product', ['byId' => $product->product_id]) }}">
+                                        <img src="{{ URL($product->product_lg_img) }}" class="img-fluid"
+                                            alt="Product Image">
+                                    </a>
                                     <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"
                                         data-id=" {{ $product->product_id }}"><i class="fa fa-shopping-cart"
                                             aria-hidden="true"></i></button>
                                 </div>
-                                <div class="col">
-                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                                </div>
-                                <div class="col">
-                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                                </div>
-                                <div class="col">
-                                    <img src="{{ URL($product->product_img) }}" class="img-thumbnail" alt="...">
-                                </div>
+
                                 <div class="col-12">
                                     <div class="row text-center mt-2">
                                         <div class="col-12">
@@ -305,7 +267,10 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                             <div class="row product-preview">
                                 <div class="col-12 image-product-preview">
-                                    <img src="{{ URL($product->product_lg_img) }}" class="img-fluid" alt="...">
+                                    <a href="{{ route('product', ['byId' => $product->product_id]) }}">
+                                        <img src="{{ URL($product->product_lg_img) }}" class="img-fluid"
+                                            alt="Product Image">
+                                    </a>
                                     <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"
                                         data-id=" {{ $product->product_id }}"><i class="fa fa-shopping-cart"
                                             aria-hidden="true"></i></button>
@@ -355,7 +320,10 @@
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                             <div class="row product-preview">
                                 <div class="col-12 image-product-preview">
-                                    <img src="{{ URL($product->product_lg_img) }}" class="img-fluid" alt="...">
+                                    <a href="{{ route('product', ['byId' => $product->product_id]) }}">
+                                        <img src="{{ URL($product->product_lg_img) }}" class="img-fluid"
+                                            alt="Product Image">
+                                    </a>
                                     <button class="btn btn-danger rounded-circle p-3 shoping-card-buy-btn"
                                         data-id=" {{ $product->product_id }}"><i class="fa fa-shopping-cart"
                                             aria-hidden="true"></i></button>
@@ -514,7 +482,8 @@
                         type: "get",
                         url: "{{ route('getProductInfo') }}",
                         data: {
-                            product_id: id
+                            product_id: id,
+                            user_token: getCookie("user_token")
                         },
                         dataType: "json",
                         success: function(response) {
@@ -558,6 +527,8 @@
                                     $("#model-product-size").append('<option value="XL">XL (Còn ' + response
                                         .product_data.product_count_xl + ' sản phẩm )</option>');
                                 }
+
+                                $(".product-lg-img").attr("src", response.product_data.product_lg_img);
 
 
                                 $("#model-child-product").html("");
@@ -608,7 +579,6 @@
 
 
                 $(".btn-addtocart").click(function() {
-                    console.log(getCookie("user_token"));
 
                     Swal.fire({
                         title: 'Đang thêm sản phẩm vào giỏ hàng ...',
@@ -619,7 +589,6 @@
                         }
                     });
 
-                    console.log($("#model-cart-count").val());
 
                     $.ajax({
                         type: "get",

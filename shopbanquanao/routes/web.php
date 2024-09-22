@@ -21,4 +21,7 @@ Route::get('/', [Controller::class,'home'])->name('home');
 Route::get("/search", [Controller::class,"search"])->name("search");
 
 
+Route::get("/product", [Controller::class,"search"])->name("product");
+
+
 Route::get("/shopping-cart", [Controller::class,"shoppingCart"])->name("cart");

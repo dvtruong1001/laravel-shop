@@ -17,13 +17,15 @@ use App\Http\Controllers\CartController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::post('/login', [UserController::class,'login'])->name('apilogin');
 
+Route::post('/register', [UserController::class,'register'])->name('apiregister');
 
 Route::get("/getProductInfo", [ProductController::class,"getProductInfo"])->name("getProductInfo");
 
 Route::get("/addToCart", [CartController::class,"insertToCart"])->name("addToCart");
+
+Route::get("/cartRemove", [CartController::class,"cartRemove"])->name("cartRemove");
+
+Route::get("/cartConfirm", [CartController::class,"cartConfirm"])->name("cartConfirm");

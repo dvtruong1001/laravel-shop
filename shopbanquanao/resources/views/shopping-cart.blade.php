@@ -14,17 +14,13 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-auto">
-                                        <label class="col-form-label text-nowrap" for="">Họ và tên * : </label>
+                                        <label class="col-form-label text-nowrap" for="fullname">Họ và tên * : </label>
 
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-auto">
-                                        <input class="form-control" type="text" value="<?php
-                                        if (isset($user_data)) {
-                                            echo htmlspecialchars($user_data['user_full_name']);
-                                        }
-                                        ?>"
-                                            id="">
+                                        <input class="form-control" type="text"
+                                            value="{{ $authenticatedUser->user_full_name }}" id="fullname">
                                     </div>
 
                                 </div>
@@ -34,17 +30,13 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-auto">
-                                        <label class="col-form-label text-nowrap" for="">Email : </label>
+                                        <label class="col-form-label text-nowrap" for="email">Email : </label>
 
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-auto">
                                         <input class="form-control" type="email" placeholder="Không bắt buộc"
-                                            value="<?php
-                                            if (isset($user_data)) {
-                                                echo htmlspecialchars($user_data['user_email']);
-                                            }
-                                            ?>" id="">
+                                            value="{{ $authenticatedUser->user_email }}" id="email">
                                     </div>
 
                                 </div>
@@ -54,17 +46,14 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-auto">
-                                        <label class="col-form-label text-nowrap" for="">Số điện thoại * : </label>
+                                        <label class="col-form-label text-nowrap" for="number-phone">Số điện thoại * :
+                                        </label>
 
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-auto">
-                                        <input class="form-control" type="email" value="<?php
-                                        if (isset($user_data)) {
-                                            echo htmlspecialchars($user_data['user_number_phone']);
-                                        }
-                                        ?>"
-                                            id="">
+                                        <input class="form-control" type="text"
+                                            value="{{ $authenticatedUser->user_number_phone }}" id="number-phone">
                                     </div>
 
                                 </div>
@@ -91,7 +80,7 @@
 
                                     <div class="col-12 col-md-12 col-lg-8">
                                         <select class="form-control" name="" id="tinh">
-
+                                            
                                         </select>
                                     </div>
 
@@ -124,7 +113,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-8">
-                                        <select class="form-control" name="" id="phuong">
+                                        <select class="form-control" id="phuong">
                                         </select>
                                     </div>
 
@@ -135,13 +124,13 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-4">
-                                        <label class="col-form-label text-nowrap" for="">Số nhà, tên đường * :
+                                        <label class="col-form-label text-nowrap" for="other-location">Số nhà, tên đường * :
                                         </label>
 
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-8">
-                                        <input class="form-control" type="text" name="" id="">
+                                        <input class="form-control" type="text" id="other-location" value="{{ $authenticatedUser->user_other_location }}">
                                     </div>
 
                                 </div>
@@ -151,12 +140,12 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-12 col-md-12 col-lg-4">
-                                        <label class="col-form-label text-nowrap" for="">Ghi chú : </label>
+                                        <label class="col-form-label text-nowrap" for="note-cart">Ghi chú : </label>
 
                                     </div>
 
                                     <div class="col-12 col-md-12 col-lg-8">
-                                        <textarea class="form-control" name="" id="" minlength="3"></textarea>
+                                        <textarea class="form-control" id="note-cart" minlength="3"></textarea>
                                     </div>
 
                                 </div>
@@ -230,7 +219,8 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-danger w-100">Thanh toán ngay</button>
+                            <button class="btn btn-danger w-100 pay-btn"
+                                @if (count($products) <= 0) disabled @endif>Đặt hàng ngay</button>
                         </div>
                     </div>
 
@@ -247,7 +237,7 @@
                         <span class="fw-bold">Giỏ hàng của bạn</span>
                         <hr>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 table-responsive">
 
 
                         <table class="table">
@@ -259,22 +249,50 @@
                                     <th scope="col">SIZE</th>
                                     <th scope="col">Tổng</th>
                                     <th scope="col">Tạo lúc </th>
+
                                     <th scope="col">Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (count($products) <= 0)
+                                    <span class="fs-1 fw-bold text-warning">Chưa có đơn hàng nào. <a
+                                            href="{{ route('home') }}">Mua ngay</a></span>
+                                @endif
                                 @php
+                                    $total = 0;
+
                                     foreach ($products as $product) {
+                                        $total += $product['product']->product_price;
                                         echo '
                                         <tr>
-                                            <th scope="row"><img src="'. $product['product']->product_img. '" class="img-thumbnail"></th>
-                                            <td>'. $product['product']->product_name .'</td>
-                                            <td><input type="number" class="form-control cart-count" data-id="'.$product['cart']->cart_id.'" max="10" value="'. $product['cart']->cart_count .'"></td>
+                                            <th scope="row"><img src="' .
+                                            $product['product']->product_img .
+                                            '" class="img-thumbnail"></th>
+                                            <td class="w-100 text-nowrap">' .
+                                            $product['product']->product_name .
+                                            '</td>
+                                            <td>' .
+                                            $product['cart']->cart_count .
+                                            '</td>
                                             ';
-                                        echo '<td>'. $product['cart']->product_size .'</td>
-                                            <td>'. $product['product']->product_price * $product['cart']->cart_count .' VND</td>
-                                            <td>'. $product['cart']->create_at. '</td>
-                                            <td><button class="btn btn-danger">Xóa</button></td>
+                                        echo '<td>' .
+                                            $product['cart']->product_size .
+                                            '</td>
+                                            <td>' .
+                                            number_format(
+                                                $product['product']->product_price * $product['cart']->cart_count,
+                                                0,
+                                                ',',
+                                                '.',
+                                            ) .
+                                            ' ₫</td>
+                                            <td>' .
+                                            $product['cart']->create_at .
+                                            '</td>
+                                            
+                                            <td><button data-id="' .
+                                            $product['cart']->cart_id .
+                                            '" class="btn btn-danger btn-remove">Xóa</button></td>
                                         </tr>
                                     
                                     ';
@@ -312,7 +330,7 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6"><span>Số tiền mua sản phẩm</span></div>
-                                    <div class="col-6 text-end">299.000 VND</div>
+                                    <div class="col-6 text-end">{{ number_format($total, 0, ',', '.') }} ₫</div>
                                 </div>
 
                                 <hr>
@@ -320,7 +338,7 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6"><span>Chi tiết mã giảm giá</span></div>
-                                    <div class="col-6 text-end text-success">-10%</div>
+                                    <div class="col-6 text-end text-success">-0%</div>
                                 </div>
 
                                 <hr>
@@ -344,7 +362,8 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6"><span>Phí vận chuyển</span></div>
-                                    <div class="col-6 text-end text-warning">30.000 VND</div>
+                                    <div class="col-6 text-end text-warning">{{ number_format(30000, 0, ',', '.') }} ₫
+                                    </div>
                                 </div>
 
                                 <hr>
@@ -356,7 +375,8 @@
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-6"><span>Tổng thanh toán</span></div>
-                                    <div class="col-6 text-end fw-bold text-danger">320.000 VND</div>
+                                    <div class="col-6 text-end fw-bold text-danger">
+                                        {{ number_format($total + 30000, 0, ',', '.') }} ₫</div>
                                 </div>
                                 <hr>
                             </div>
@@ -369,10 +389,308 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-5">
+
+
+            <div class="row">
+                <div class="col-12">
+                    <span class="fw-bold">Lịch sử đặt hàng của bạn</span>
+                    <hr>
+                </div>
+                <div class="col-12 table-responsive">
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Hình</th>
+                                <th scope="col">Thông tin sản phẩm</th>
+                                <th scope="col">SL</th>
+                                <th scope="col">SIZE</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Đặt lúc </th>
+                                <th scope="col">Địa chỉ nhận hàng</th>
+                                <th scope="col">Trạng thái</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+
+                                foreach ($history as $product) {
+                                    echo '
+                                    <tr>
+                                        <th scope="row"><img src="' .
+                                        $product->product_img .
+                                        '" class="img-thumbnail"></th>
+                                        <td class="w-100 text-nowrap">' .
+                                        $product->product_name .
+                                        '</td>
+                                        <td>' .
+                                        $product->product_count .
+                                        '</td>
+                                        ';
+                                    echo '<td>' .
+                                        $product->product_size .
+                                        '</td>
+                                        <td>' .
+                                        number_format($product->product_price * $product->product_count, 0, ',', '.') .
+                                        ' ₫</td>
+                                        <td>' .
+                                        $product->created_at .
+                                        '</td>
+                                        <td class="w-100 text-nowrap">' .
+                                        $product->location .
+                                        '</td>
+                                        ';
+                                    switch ($product->status) {
+                                        case 0:
+                                            echo '<td><span class="badge bg-warning">Chờ xác nhận đơn</span></td>';
+                                            break;
+                                        case 1:
+                                            echo '<td><span class="badge bg-primary">Đang giao hàng</span></td>';
+                                            break;
+                                        case 2:
+                                            echo '<td><span class="badge bg-success">Đã giao hàng</span></td>';
+                                            break;
+                                        case 3:
+                                            echo '<td><span class="badge bg-danger">Giao hàng không thành công</span></td>';
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    echo '
+                                        
+                                    </tr>
+                                
+                                ';
+                                }
+                            @endphp
+
+
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
 
 
         <script>
             $(document).ready(function() {
+
+                $(".pay-btn").click(function(e) {
+                    e.preventDefault();
+
+
+
+                    const fullname = $("#fullname").val();
+
+                    const email = $("#email").val();
+
+                    const numberphone = $("#number-phone").val();
+
+                    const tinh = $("#tinh option:selected").text();
+
+                    const huyen = $("#quan option:selected").text();
+
+                    const phuong = $("#phuong option:selected").text();
+
+                    const tinh_code = $("#tinh").val();
+
+                    const huyen_code = $("#quan").val();
+
+                    const phuong_code = $("#phuong").val();
+
+                    
+                    const other_location = $("#other-location").val();
+
+                    const notes_cart = $("#note-cart").val();
+
+                    if (!fullname) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi...",
+                            text: "Không được bỏ trống họ và tên",
+
+                        });
+                        return false;
+                    }
+
+                    if (!numberphone) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi...",
+                            text: "Không được bỏ trống số điện thoại",
+
+                        });
+                        return false;
+                    }
+
+
+                    if (!tinh_code) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi...",
+                            text: "Vui lòng nhập địa chỉ nhận hàng (Tỉnh)",
+
+                        });
+                        return false;
+                    }
+
+                    if (!huyen_code) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi...",
+                            text: "Vui lòng nhập địa chỉ nhận hàng (Huyện/Thành phố)",
+
+                        });
+                        return false;
+                    }
+
+
+                    if (!phuong_code) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi...",
+                            text: "Vui lòng nhập địa chỉ nhận hàng (Phường/Xã)",
+
+                        });
+                        return false;
+                    }
+
+
+                    if (!other_location) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Lỗi...",
+                            text: "Vui lòng nhập địa chỉ nhận hàng (Số nhà, tên đường)",
+
+                        });
+                        return false;
+                    }
+
+                    Swal.fire({
+                        title: 'Đang đặt hàng ...',
+                        text: 'Vui lòng chờ 1 chút nhé',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('cartConfirm') }}",
+                        data: {
+                            user_token: getCookie("user_token"),
+                            fullname: fullname,
+                            email: email,
+                            numberphone: numberphone,
+                            tinh: tinh,
+                            huyen: huyen,
+                            phuong: phuong,
+
+                            tinh_code: tinh_code,
+                            huyen_code: huyen_code,
+                            phuong_code: phuong_code,
+
+
+                            otherlocation: other_location,
+                            notescart: notes_cart
+                        },
+                        dataType: "json",
+                        success: function(response) {
+
+                            Swal.close();
+                            if (response.status == 200) {
+                                Swal.fire({
+                                    toast: true,
+                                    icon: 'success',
+                                    title: 'Đặt hàng. Tiếp tục mua sắm nào!',
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                });
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 3000);
+                            }
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+
+                            Swal.close();
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi...",
+                                text: jqXHR.responseJSON.message,
+
+                            });
+                            return false;
+                        }
+                    });
+                });
+
+                $(".btn-remove").click(function(e) {
+
+                    console.log($(this).data("id"));
+
+                    $.ajax({
+                        url: "{{ route('cartRemove') }}",
+                        type: 'GET',
+                        data: {
+                            user_token: getCookie("user_token"),
+                            cart_id: $(this).data("id"),
+                        },
+
+                        success: function(response) {
+                            console.log(response)
+                            if (response) {
+                                let res_json = response;
+
+                                if (res_json.status == "error") {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Lỗi...",
+                                        text: res_json.message,
+
+                                    });
+                                    return false;
+                                }
+
+                                window.location.reload();
+                            } else {
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Lỗi...",
+                                    text: "Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng",
+
+                                });
+                                return false;
+                            }
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+
+                            console.log(jqXHR);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Lỗi...",
+                                text: jqXHR.responseJSON.message,
+
+                            });
+                            return false;
+                        }
+                    });
+
+                    $(this).closest('tr').remove();
+                });
                 //Lấy tỉnh thành
                 $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
                     if (data_tinh.error == 0) {
@@ -419,48 +737,45 @@
                                                         });
 
 
-                                                    <?php
+                                                    @if ($authenticatedUser)
+                                                        {
 
-                                            if (isset($user_data)) {
-                                                ?>
-                                                    $("#phuong").val(
-                                                        "<?= $user_data['user_ward_location'] ?>"
-                                                    );
+                                                            $("#phuong").val(
+                                                                "{{ $authenticatedUser->user_ward_location }}"
+                                                            );
+                                                            $("#phuong").change();
 
-
-                                                    <?php
-                                            }
-                                            ?>
+                                                        }
+                                                    @endif
+                                                    
                                                 }
                                             });
                                     });
 
-                                    <?php
+                                    @if ($authenticatedUser)
+                                        {
 
-                                if (isset($user_data)) {
-                                    ?>
-                                    $("#quan").val(
-                                        "<?= $user_data['user_district_location'] ?>");
-                                    $("#quan").change();
+                                            $("#quan").val(
+                                                "{{ $authenticatedUser->user_district_location }}"
+                                            );
+                                            $("#quan").change();
 
-                                    <?php
-                                }
-                                ?>
+                                        }
+                                    @endif
 
                                 }
                             });
                         });
 
-                        <?php
 
-                    if (isset($user_data)) {
-                        ?>
-                        $("#tinh").val("<?= $user_data['user_province_location'] ?>");
-                        $("#tinh").change();
+                        @if ($authenticatedUser)
+                            {
 
-                        <?php
-                    }
-                    ?>
+                                $("#tinh").val("{{ $authenticatedUser->user_province_location }}");
+                                $("#tinh").change();
+
+                            }
+                        @endif
 
                     }
                 });
