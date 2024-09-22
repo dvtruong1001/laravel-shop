@@ -607,7 +607,7 @@
                         success: function(response) {
 
                             Swal.close();
-                            if (response.status == 200) {
+                            if (response.status == "success") {
                                 Swal.fire({
                                     toast: true,
                                     icon: 'success',
