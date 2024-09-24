@@ -33,3 +33,8 @@ Route::get("/shopping-cart", [Controller::class,"shoppingCart"])->name("cart");
 Route::get("admin/", [AdminController::class,"index"])->name("adminIndex");
 
 Route::get("admin/products", [AdminController::class, "products"])->name("adminProducts");
+
+
+Route::get("admin/category", [AdminController::class, "category"])->name("adminCategory");
+
+Route::get("admin/cart", [AdminController::class, "cart"])->name("adminCart");

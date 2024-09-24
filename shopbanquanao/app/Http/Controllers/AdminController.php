@@ -40,11 +40,57 @@ class AdminController extends Controller
         );
     }
 
-    public function products(Request $request) {
+    public function products(Request $request)
+    {
+
+        $products = [];
+        $_products = Product::orderByDesc("product_id")->get();
+        foreach ($_products as $product) {
+            $products[] = [
+                "product" => $product,
+                "category" => Category::where("category_id", $product->category_linker_id)->first(),
+            ];
+        }
+
+        $catgories = Category::all();
+
+        return view("admin.products", [
+            "products" => $products,
+            "catgories" => $catgories
+        ]);
+    }
+
+    public function category(Request $request)
+    {
+
+        $catgories = [];
+        $_catgories = Category::orderByDesc("category_id")->get();
+
+        foreach ($_catgories as $category) {
+            $catgories[] = [
+                "category"=> $category,
+                "total_product" => Product::where("category_linker_id", $category->category_id)->get()->count(),
+            ];
+        }
 
 
-        $products = Product::all();
+        return view("admin.category", [
+            
+            "catgories" => $catgories
+        ]);
+    }
 
-        return view("admin.products", ["products"=> $products]);
+
+    public function cart(Request $request) {
+        $_carts = CartHistory::orderByDesc("id")->get();
+        $carts = [];
+        foreach ($_carts as $cart) {
+            $carts[] = [
+                "user" => User::where("user_token", $cart->owner)->first(),
+                "cart" => $cart
+            ];
+        }
+        
+        return view("admin.cart", ["carts" => $carts]);
     }
 }

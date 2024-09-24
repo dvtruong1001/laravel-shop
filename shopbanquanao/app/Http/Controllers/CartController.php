@@ -7,6 +7,7 @@ use App\Models\CartHistory;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -165,9 +166,25 @@ class CartController extends Controller
         $fulllocation = $fullname . " | " . $numberphone . " | " . $otherlocation . ", " . $phuong . ", " . $huyen . ", " . $tinh . ", " . $notescart;
         $carts = Cart::where("cart_owner", $user_token)
             ->where("cart_status", 0)->get();
-            
+
         foreach ($carts as $cart) {
             $product = Product::where("product_id", $cart->product_id)->first();
+            switch ($cart->product_size) {
+                case "S":
+                    $product->product_count -= $cart->cart_count;
+                    break;
+                case "M":
+                    $product->product_count_m -= $cart->cart_count;
+                    break;
+                case "L":
+                    $product->product_count_l -= $cart->cart_count;
+                    break;
+                case "XL":
+                    $product->product_count_xl -= $cart->cart_count;
+                    break;
+            }
+
+            $product->save();
             CartHistory::insert([
                 "product_img" => $product->product_img,
                 "product_name" => $product->product_name,
@@ -175,14 +192,15 @@ class CartController extends Controller
                 "product_count" => $cart->cart_count,
                 "product_size" => $cart->product_size,
                 "location" => $fulllocation,
-                "owner" => $user_token
+                "owner" => $user_token,
+                "cart_token" => Str::random(10)
             ]);
 
         }
 
-        
 
-        
+
+
 
         $updated = Cart::where("cart_owner", $user_token)
             ->where("cart_status", 0)
@@ -202,6 +220,184 @@ class CartController extends Controller
                 "status" => "error"
             ], 400);
         }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public function setCartHistoryInfo(Request $request)
+    {
+
+        $user_token = $request->user_token;
+        $cart_id = $request->id;
+
+        if (!$user_token) {
+            return response()->json([
+                "message" => "Bạn chưa đăng nhập",
+                "status" => "error"
+            ], 401);
+        }
+
+        if (strlen($user_token) < 50) {
+            return response()->json([
+                "message" => "Bạn chưa đăng nhập",
+                "status" => "error"
+            ], 401);
+        }
+
+        $user = User::where("user_token", $user_token)->first();
+        if (!$user) {
+            return response()->json([
+                "message" => "Token không hợp lệ",
+                "status" => "error"
+            ], 401);
+        }
+
+        if ($user->level < 1) {
+            return response()->json([
+                "message" => "Bạn không có quyền làm việc này",
+                "status" => "error"
+            ], 401);
+        }
+
+        $cart = CartHistory::where("id", $cart_id)->first();
+
+        if (!$cart) {
+            return response()->json([
+                "message" => "Don hang khong ton tai",
+                "status" => "error"
+            ], 404);
+        }
+
+        
+        $cart->status = (int) $request->e_status;
+
+        $cart->save();
+
+        return response()->json([
+            "message" => "Thanh cong",
+            "status" => "success",
+            "cart" => $cart
+        ], 200);
+
+
+    }
+
+    public function getCartHistoryInfo(Request $request)
+    {
+
+        $user_token = $request->user_token;
+        $cart_id = $request->id;
+
+        if (!$user_token) {
+            return response()->json([
+                "message" => "Bạn chưa đăng nhập",
+                "status" => "error"
+            ], 401);
+        }
+
+        if (strlen($user_token) < 50) {
+            return response()->json([
+                "message" => "Bạn chưa đăng nhập",
+                "status" => "error"
+            ], 401);
+        }
+
+        $user = User::where("user_token", $user_token)->first();
+        if (!$user) {
+            return response()->json([
+                "message" => "Token không hợp lệ",
+                "status" => "error"
+            ], 401);
+        }
+
+        if ($user->level < 1) {
+            return response()->json([
+                "message" => "Bạn không có quyền làm việc này",
+                "status" => "error"
+            ], 401);
+        }
+
+        $cart = CartHistory::where("id", $cart_id)->first();
+
+        if (!$cart) {
+            return response()->json([
+                "message" => "Don hang khong ton tai",
+                "status" => "error"
+            ], 404);
+        }
+
+        return response()->json([
+            "message" => "Thanh cong",
+            "status" => "success",
+            "cart" => $cart
+        ], 200);
+
+
+    }
+
+
+    public function deleteCartHistory(Request $request)
+    {
+
+        $user_token = $request->user_token;
+        $cart_id = $request->id;
+
+        if (!$user_token) {
+            return response()->json([
+                "message" => "Bạn chưa đăng nhập",
+                "status" => "error"
+            ], 401);
+        }
+
+        if (strlen($user_token) < 50) {
+            return response()->json([
+                "message" => "Bạn chưa đăng nhập",
+                "status" => "error"
+            ], 401);
+        }
+
+        $user = User::where("user_token", $user_token)->first();
+        if (!$user) {
+            return response()->json([
+                "message" => "Token không hợp lệ",
+                "status" => "error"
+            ], 401);
+        }
+
+        if ($user->level < 1) {
+            return response()->json([
+                "message" => "Bạn không có quyền làm việc này",
+                "status" => "error"
+            ], 401);
+        }
+
+        $cart = CartHistory::where("id", $cart_id)->first();
+
+        if (!$cart) {
+            return response()->json([
+                "message" => "Don hang khong ton tai",
+                "status" => "error"
+            ], 404);
+        }
+
+
+        $cart->delete();
+        return response()->json([
+            "message" => "Thanh cong",
+            "status" => "success",
+            "cart" => $cart
+        ], 200);
+
+
     }
 
 }

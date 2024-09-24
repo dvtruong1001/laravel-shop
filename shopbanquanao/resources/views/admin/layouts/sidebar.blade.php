@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route("adminIndex")}}" class="brand-link">
       <img src="{{ URL("dist/img/AdminLTELogo.png") }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Trang quản trị</span>
     </a>
@@ -45,10 +45,10 @@
             
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{ route("adminProducts") }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Quản lý đơn hàng
+                Quản lý sản phẩm
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
@@ -56,7 +56,7 @@
 
 
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{ route("adminCategory") }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Quản lý danh mục
@@ -67,10 +67,10 @@
 
 
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{ route("adminCart") }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Quản lý người dùng
+                Quản lý đơn hàng
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>

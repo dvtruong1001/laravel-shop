@@ -181,7 +181,7 @@
 
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @if ($authenticatedUser->level == 1)
-                                <li><a class="dropdown-item" href="#">Trang dành cho admin</a></li>
+                                <li><a class="dropdown-item" href="{{ route("adminIndex") }}">Trang dành cho admin</a></li>
 
                             @endif
 

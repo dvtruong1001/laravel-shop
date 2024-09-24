@@ -17,6 +17,7 @@ class CartHistory extends Model
         "product_price",
         "product_count",
         'product_size',
-        "owner"
+        "owner",
+        "cart_token"
     ];
 }

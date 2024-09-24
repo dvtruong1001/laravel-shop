@@ -404,6 +404,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Hình</th>
+                                <th scope="col">Mã đơn</th>
                                 <th scope="col">Thông tin sản phẩm</th>
                                 <th scope="col">SL</th>
                                 <th scope="col">SIZE</th>
@@ -420,9 +421,10 @@
                                 foreach ($history as $product) {
                                     echo '
                                     <tr>
-                                        <th scope="row"><img src="' .
+                                        <td scope="row"><img src="' .
                                         $product->product_img .
-                                        '" class="img-thumbnail"></th>
+                                        '" class="img-thumbnail"></td>
+                                        <td>'. $product->cart_token.'
                                         <td class="w-100 text-nowrap">' .
                                         $product->product_name .
                                         '</td>

@@ -23,7 +23,8 @@ class Cart extends Model
         'cart_status',
         'product_id',
         'cart_count',
-        'product_size'
+        'product_size',
+        'cart_token'
     ];
 
     

@@ -19,6 +19,11 @@ class UserAuth
         if ($userToken) {
             $user = User::where("user_token", "=", $userToken)->first();
             if ($user) {
+                // Kiểm tra nếu vào trang admin và yêu cầu level > 1
+                if ($this->isAdminRoute($request) && $user->level < 1) {
+                    return redirect()->route('home')->with('error', 'Bạn không có quyền truy cập trang quản trị.');
+                }
+
                 View::share("authenticatedUser", $user);
                 $request->merge(['authenticatedUser' => $user]);
 
@@ -44,11 +49,9 @@ class UserAuth
                     $request->merge(['authenticatedUser' => $user]);
                     return $next($request);
                 }
-
             }
-
-           
         }
+
         if ($this->shouldRedirect($request)) {
             return redirect()->route('home');
         } else {
@@ -57,7 +60,6 @@ class UserAuth
         }
 
         return $next($request);
-
     }
 
     public function shouldRedirect(Request $request)
@@ -65,9 +67,25 @@ class UserAuth
         // Danh sách các URL cần chuyển hướng nếu không đăng nhập
         $protectedRoutes = [
             'shopping-cart',
-            
         ];
 
         return in_array($request->path(), $protectedRoutes);
+    }
+
+    // Hàm kiểm tra xem có phải route admin hay không
+    protected function isAdminRoute(Request $request)
+    {
+        // Danh sách các route hoặc prefix dành cho admin
+        $adminRoutes = [
+            'admin', // Ví dụ: nếu URL có chứa 'admin'
+        ];
+
+        foreach ($adminRoutes as $adminRoute) {
+            if (Str::startsWith($request->path(), $adminRoute)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
