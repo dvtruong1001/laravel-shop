@@ -24,6 +24,8 @@ Route::post('/register', [UserController::class,'register'])->name('apiregister'
 
 Route::get("/getProductInfo", [ProductController::class,"getProductInfo"])->name("getProductInfo");
 
+Route::get("/setProductInfo", [ProductController::class,"setProductInfo"])->name("setProductInfo");
+
 Route::get("/addToCart", [CartController::class,"insertToCart"])->name("addToCart");
 
 Route::get("/cartRemove", [CartController::class,"cartRemove"])->name("cartRemove");

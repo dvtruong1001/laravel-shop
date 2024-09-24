@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FileUploadController;
+
 
 
 /*
@@ -18,6 +20,8 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', [Controller::class,'home'])->name('home');
 
+Route::post('/upload', [FileUploadController::class, 'upload'])->name('upload');
+
 Route::get("/search", [Controller::class,"search"])->name("search");
 
 
@@ -25,3 +29,7 @@ Route::get("/product", [Controller::class,"search"])->name("product");
 
 
 Route::get("/shopping-cart", [Controller::class,"shoppingCart"])->name("cart");
+
+Route::get("admin/", [AdminController::class,"index"])->name("adminIndex");
+
+Route::get("admin/products", [AdminController::class, "products"])->name("adminProducts");
